@@ -18,7 +18,6 @@ pipeline {
         stage('Build') {
             steps {
                 dir("/home/gazal/.jenkins/workspace/demo1") {
-                    withEnv(["JAVA_HOME=${JAVA_HOME}"]) {
                         sh 'mvn -B -DskipTests clean package'
                     }
                 }
