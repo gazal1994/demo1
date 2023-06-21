@@ -19,7 +19,6 @@ pipeline {
             steps {
                 dir("/home/gazal/.jenkins/workspace/demo1") {
                         sh 'mvn -B -DskipTests clean package'
-                    }
                 }
             }
         }
