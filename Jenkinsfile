@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Initialize') {
             environment {
-                JAVA_HOME = "${tool 'JDK'}"
+                env.JAVA_HOME = /usr/lib/jvm/java-11-openjdk-amd64/bin/java
             }
             steps {
                 echo "PATH = ${M2_HOME}/bin:${PATH}"
