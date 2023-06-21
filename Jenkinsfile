@@ -19,6 +19,7 @@ pipeline {
             steps {
                 echo "JAVA_HOME = ${JAVA_HOME}"
                 dir("/home/gazal/.jenkins/workspace/demo1") {
+                    echo "JAVA_HOME = ${JAVA_HOME}"
                         sh 'mvn clean'
                         sh 'mvn install'
                 }
