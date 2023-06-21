@@ -4,9 +4,6 @@ pipeline {
         maven "maven-3.9.2"
         jdk "JDK"
     }
-     environment {
-            JAVA_HOME = '/usr/lib/jvm/java-11-openjdk-amd64/bin/java'
-            }
     stages {
         stage('Initialize') {
             steps {
