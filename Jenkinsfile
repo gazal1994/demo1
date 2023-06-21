@@ -1,40 +1,30 @@
 pipeline {
-	agent any
-	stages {
-		stage('One') {
-			steps {
-				echo 'Hi, this is Soumitra from roytuts'
-			}
-		}
-		
-		stage('Two') {
-			steps {
-				input('Do you want to proceed?')
-			}
-		}
-		
-		stage('Build') {
-            steps {
-                bat './gradlew build'
+    agent any
+    tools {
+        maven "MAVEN"
+        jdk "JDK"
+    }
+    stages {
+        stage('Initialize'){
+            steps{
+                echo "PATH = ${M2_HOME}/bin:${PATH}"
+                echo "M2_HOME = /opt/maven"
             }
         }
-        
-        stage('Test') {
+        stage('Build') {
             steps {
-                bat './gradlew test'
+                dir("/var/lib/jenkins/workspace/demopipelinetask/my-app") {
+                sh 'mvn -B -DskipTests clean package'
+                }
             }
         }
-        
-        stage('Check') {
-            steps {
-                bat './gradlew check'
-            }
-        }      
-		
-		stage('Five') {
-			steps {
-				echo 'Finished'
-			}
-		}		
-	}
+     }
+    post {
+       always {
+          junit(
+        allowEmptyResults: true,
+        testResults: '*/test-reports/.xml'
+      )
+      }
+   } 
 }
