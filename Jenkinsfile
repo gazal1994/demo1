@@ -4,11 +4,11 @@ pipeline {
         maven "maven-3.9.2"
         jdk "JDK"
     }
-    environment {
-        JAVA_HOME = "${tool 'JDK'}"
-    }
     stages {
         stage('Initialize') {
+            environment {
+                JAVA_HOME = "${tool 'JDK'}"
+            }
             steps {
                 echo "PATH = ${M2_HOME}/bin:${PATH}"
                 echo "M2_HOME = /opt/maven"
@@ -18,7 +18,9 @@ pipeline {
         stage('Build') {
             steps {
                 dir("/home/gazal/.jenkins/workspace/demo1") {
-                    sh 'mvn -B -DskipTests clean package'
+                    withEnv(["JAVA_HOME=${JAVA_HOME}"]) {
+                        sh 'mvn -B -DskipTests clean package'
+                    }
                 }
             }
         }
