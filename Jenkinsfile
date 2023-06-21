@@ -5,11 +5,11 @@ pipeline {
         jdk "JDK"
     }
     environment {
-        JAVA_HOME = '/usr/lib/jvm/java-11-openjdk-amd64/bin/java'
+        JAVA_HOME = tool(name: 'JDK', type: 'jdk').getHome()
     }
     stages {
-        stage('Initialize'){
-            steps{
+        stage('Initialize') {
+            steps {
                 echo "PATH = ${M2_HOME}/bin:${PATH}"
                 echo "M2_HOME = /opt/maven"
                 echo "JAVA_HOME = ${JAVA_HOME}"
@@ -18,17 +18,9 @@ pipeline {
         stage('Build') {
             steps {
                 dir("/home/gazal/.jenkins/workspace/demo1") {
-                sh 'mvn -B -DskipTests clean package'
+                    sh 'mvn -B -DskipTests clean package'
                 }
             }
         }
-     }
-   //  post {
-   //     always {
-   //        junit(
-   //      allowEmptyResults: true,
-   //      testResults: '*/test-reports/.xml'
-   //    )
-   //    }
-   // } 
+    }
 }
