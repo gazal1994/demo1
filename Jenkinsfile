@@ -5,7 +5,7 @@ pipeline {
         jdk "JDK"
     }
     environment {
-        JAVA_HOME = tool(name: 'JDK', type: 'jdk').getHome()
+        JAVA_HOME = "${tool 'JDK'}"
     }
     stages {
         stage('Initialize') {
